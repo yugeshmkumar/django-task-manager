@@ -1,0 +1,19 @@
+# Virtual environment
+venv/
+*.egg-info/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff:
+*.log
+db.sqlite3
+
+# VS Code settings folder (if you don\u2019t want to track them)
+.vscode/
+
+# OS specific files
+.DS_Store
+

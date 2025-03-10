@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Delete Task</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1>Delete Task</h1>
+        <p>Are you sure you want to delete the task: "{{ object }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Confirm Delete</button>
+            <a class="btn btn-secondary" href="{% url 'task-list' %}">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>
