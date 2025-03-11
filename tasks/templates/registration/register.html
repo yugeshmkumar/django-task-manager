@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register | Django Task Manager</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="mb-0">Register</h2>
+                    </div>
+                    <div class="card-body">
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            Please correct the error(s) below.
+                        </div>
+                        {% endif %}
+                        <form method="post">
+                            {% csrf_token %}
+
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label for="id_username">Username</label>
+                                {{ form.username }}
+                                <small class="form-text text-muted">
+                                    Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+                                </small>
+                                <!-- Display field-specific errors if desired -->
+                                <!-- {{ form.username.errors }} -->
+                            </div>
+
+                            <!-- Password1 Field -->
+                            <div class="form-group">
+                                <label for="id_password1">Password</label>
+                                {{ form.password1 }}
+                                <small class="form-text text-muted">
+                                    Your password must contain at least 8 characters, cannot be entirely numeric, and
+                                    cannot be too common.
+                                </small>
+                                <!-- {{ form.password1.errors }} -->
+                            </div>
+
+                            <!-- Password2 Field -->
+                            <div class="form-group">
+                                <label for="id_password2">Confirm Password</label>
+                                {{ form.password2 }}
+                                <small class="form-text text-muted">
+                                    Enter the same password as above, for verification.
+                                </small>
+                                <!-- {{ form.password2.errors }} -->
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="mb-0">
+                            Already have an account?
+                            <a href="{% url 'login' %}">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

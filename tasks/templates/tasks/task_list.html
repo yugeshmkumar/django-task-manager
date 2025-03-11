@@ -1,21 +1,41 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <title>Task Manager</title>
-    <!-- Bootstrap CSS for basic styling -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
+{% block title %}{% if object %}Edit Task{% else %}Add Task{% endif %}{% endblock %}
 
-<body>
-    <div class="container mt-4">
-        <h1>Task Manager</h1>
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h1 class="mb-0">Task Manager</h1>
+    </div>
+    <div class="card-body">
         <a class="btn btn-primary mb-3" href="{% url 'task-add' %}">Add Task</a>
+        <form method="get" class="mb-3">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" name="q" class="form-control" placeholder="Search tasks..."
+                        value="{{ request.GET.q }}">
+                </div>
+                <div class="col">
+                    <select name="priority" class="form-control">
+                        <option value="">All Priorities</option>
+                        <option value="H" {% if request.GET.priority == "H" %}selected{% endif %}>High</option>
+                        <option value="M" {% if request.GET.priority == "M" %}selected{% endif %}>Medium</option>
+                        <option value="L" {% if request.GET.priority == "L" %}selected{% endif %}>Low</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-secondary btn-block">Filter</button>
+                </div>
+            </div>
+        </form>
+
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
                     <th>Completed</th>
                     <th>Actions</th>
                 </tr>
@@ -25,6 +45,8 @@
                 <tr>
                     <td>{{ task.title }}</td>
                     <td>{{ task.description }}</td>
+                    <td>{{ task.due_date|date:"M d, Y" }}</td>
+                    <td>{{ task.get_priority_display }}</td>
                     <td>{{ task.completed }}</td>
                     <td>
                         <a class="btn btn-sm btn-warning" href="{% url 'task-edit' task.pk %}">Edit</a>
@@ -33,12 +55,11 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">No tasks available.</td>
+                    <td colspan="6">No tasks available.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
